@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.company {
+  padding: 20px;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: sans-serif;
+}
+.chart {
+  width: 85%;
+  height: 100vh;
+}
+
+@media (max-width: 770px) {
+  .chart {
+    width: 100%;
+  }
+}

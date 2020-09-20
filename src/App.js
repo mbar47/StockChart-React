@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Chart from "./components/Chart/Chart";
+import { fetchStock } from "./api/Stock";
 
-function App() {
+import Input from "./components/Input/Input";
+
+import "./App.css";
+
+const App = () => {
+  const [fetchedData, setFetchedData] = useState({});
+  const [inputText, setInputText] = useState("");
+
+  /*
+  const didComponentMount = async () => {
+    const data = await fetchStock();
+    setFetchedData(data);
+  };*/
+
+  const handleCompanyChange = async (country) => {
+    const data = await fetchStock(country);
+    setFetchedData(data);
+  };
+
+  useEffect(() => {
+    handleCompanyChange();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Input
+        handleCompanyChange={handleCompanyChange}
+        inputText={inputText}
+        setInputText={setInputText}
+      />
+      <Chart fetchedData={fetchedData} />
     </div>
   );
-}
+};
 
 export default App;
