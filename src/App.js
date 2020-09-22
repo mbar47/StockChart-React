@@ -9,6 +9,7 @@ import "./App.css";
 const App = () => {
   const [fetchedData, setFetchedData] = useState({});
   const [inputText, setInputText] = useState("");
+  const [isLineChart, setIsLineChart] = useState(true);
 
   /*
   const didComponentMount = async () => {
@@ -31,8 +32,10 @@ const App = () => {
         handleCompanyChange={handleCompanyChange}
         inputText={inputText}
         setInputText={setInputText}
+        isLineChart={isLineChart}
+        setIsLineChart={setIsLineChart}
       />
-      <Chart fetchedData={fetchedData} />
+      <Chart fetchedData={fetchedData} isLineChart={isLineChart} />
     </div>
   );
 };

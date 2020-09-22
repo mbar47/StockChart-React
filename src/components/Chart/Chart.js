@@ -1,9 +1,9 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 
 import styles from "./Chart.module.css";
 
-const Chart = ({ fetchedData }) => {
+const Chart = ({ fetchedData, isLineChart }) => {
   let xValueList = [];
   let openingValueList = [];
   let closingValueList = [];
@@ -28,7 +28,7 @@ const Chart = ({ fetchedData }) => {
     closingValueList.push(fetchedData["Time Series (Daily)"][key]["4. close"]);
   }
 
-  var myLineChart = (
+  let lineChart = (
     <Line
       data={{
         labels: xValueList,
@@ -37,14 +37,14 @@ const Chart = ({ fetchedData }) => {
             data: openingValueList,
             label: "Opening value",
             borderColor: "#3333ff",
-            backgroundColor: "rgba(0,0,255,0.3)",
+            backgroundColor: "rgba(50,150,250,0.3)",
             fill: true,
           },
           {
             data: highValueList,
             label: "Highest value",
             borderColor: "#008000",
-            backgroundColor: "rgba(0,150,0,0.3)",
+            backgroundColor: "rgba(120,200,120,0.3)",
             fill: true,
           },
           {
@@ -66,12 +66,46 @@ const Chart = ({ fetchedData }) => {
     />
   );
 
+  let barChart = (
+    <Bar
+      data={{
+        labels: ["Highest", "Lowest", "Opening", "Closing"],
+        datasets: [
+          {
+            label: "",
+            backgroundColor: [
+              "rgba(0, 0, 255, 0.5)",
+              "rgba(0, 255, 0, 0.5)",
+              "rgba(255, 0, 0, 0.5)",
+              "rgba(0, 0, 0, 0.5)",
+            ],
+            data: [
+              highValueList[0],
+              lowValueList[0],
+              openingValueList[0],
+              closingValueList[0],
+            ],
+          },
+        ],
+        options: {
+          legend: {
+            display: false,
+          },
+        },
+        tooltips: {
+          enable: true,
+        },
+      }}
+    />
+  );
+
   return (
     <div className={styles.container}>
       <h1 className={styles.company}>
         You are currently viewing: {companyName}
       </h1>
-      <div className={styles.chart}>{myLineChart}</div>
+      <h3>{!isLineChart ? xValueList[0] : null}</h3>
+      <div className={styles.chart}>{isLineChart ? lineChart : barChart}</div>
     </div>
   );
 };

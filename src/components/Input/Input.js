@@ -1,8 +1,16 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartArea, faChartBar } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Input.module.css";
 
-const Input = ({ inputText, setInputText, handleCompanyChange }) => {
+const Input = ({
+  inputText,
+  setInputText,
+  handleCompanyChange,
+  isLineChart,
+  setIsLineChart,
+}) => {
   const handleTextChange = (textValue) => {
     setInputText(textValue);
   };
@@ -17,8 +25,13 @@ const Input = ({ inputText, setInputText, handleCompanyChange }) => {
       <form className={styles.form} onSubmit={onSubmitHandler}>
         <input
           onChange={(e) => handleTextChange(e.target.value)}
-          placeholder="Search for stock name ex. AAPL (press enter)"
+          placeholder="Search for stock name ex. AAPL"
           type="text"
+        />
+        <FontAwesomeIcon
+          icon={isLineChart ? faChartArea : faChartBar}
+          size="2x"
+          onClick={() => setIsLineChart(!isLineChart)}
         />
       </form>
     </div>
